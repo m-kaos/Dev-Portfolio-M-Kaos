@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1760390059158,
+    "url": "https://kairos.m-kaos.com/",
+    "description": "Automation and smart systems, solving problems of any business.",
+    "title": "Kairos",
+    "date": "2025",
+    "order": 1
+  },
+  {
+    "id": 1760388718538,
+    "url": "https://jar-logistics.com/",
+    "description": "Landing Page and Quoting System - Complete web application for business logistics management with integrated quoting functionality. Mobile and desktop versions.",
+    "title": "Inicio - Logistica y Transporte",
+    "date": "2025",
+    "order": 2
+  },
+  {
+    "id": 1,
+    "url": "https://resilient-rootssustainable-shoots.m-kaos.com",
+    "title": "Resilient Roots & Sustainable Shoots",
+    "date": "2024",
+    "description": "Inspired by the life cycle of fungi, this project reimagines Chimilin's former school as a community coworking center, while expanding Les Grands Ateliers with residences, a park, commerce, and a co-creation lab.",
+    "order": 3
+  }
+]

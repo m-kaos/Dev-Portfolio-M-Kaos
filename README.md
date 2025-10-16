@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# DevMKaos Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern developer portfolio built with React, TypeScript, and Tailwind CSS, inspired by contemporary portfolio designs.
 
 ## Available Scripts
 
