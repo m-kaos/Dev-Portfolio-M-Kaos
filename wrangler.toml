@@ -1,9 +1,0 @@
-name = "devmkaos2"
-compatibility_date = "2024-01-01"
-
-# Pages configuration for static site
-pages_build_output_dir = "build"
-
-# Route configuration
-[site]
-bucket = "./build"
