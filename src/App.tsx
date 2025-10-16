@@ -3,7 +3,6 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import MyWork from './components/MyWork';
 import About from './components/About';
-import Blog from './components/Blog';
 import ThemeSelector from './components/ThemeSelector';
 import CustomScrollbar from './components/CustomScrollbar';
 import WorkAdmin from './components/WorkAdmin';

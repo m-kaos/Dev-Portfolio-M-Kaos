@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface CustomScrollbarProps {
   containerRef?: React.RefObject<HTMLElement>;
@@ -11,11 +11,9 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({
   lineCount = 40,
   activeLinesCount = 3
 }) => {
-  const [scrollPercentage, setScrollPercentage] = useState(0);
   const [lineWidths, setLineWidths] = useState<number[]>(Array(lineCount).fill(3));
 
   useEffect(() => {
-    const scrollElement = containerRef?.current || window;
 
     const handleScroll = () => {
       let scrollTop: number;
@@ -34,8 +32,6 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({
 
       const scrollableHeight = scrollHeight - clientHeight;
       const percentage = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
-
-      setScrollPercentage(percentage);
 
       // Calculate which lines should be active based on scroll position
       const currentLineIndex = Math.floor((percentage / 100) * lineCount);
@@ -64,8 +60,9 @@ const CustomScrollbar: React.FC<CustomScrollbarProps> = ({
     handleScroll();
 
     if (containerRef?.current) {
-      containerRef.current.addEventListener('scroll', handleScroll);
-      return () => containerRef.current?.removeEventListener('scroll', handleScroll);
+      const element = containerRef.current;
+      element.addEventListener('scroll', handleScroll);
+      return () => element.removeEventListener('scroll', handleScroll);
     } else {
       window.addEventListener('scroll', handleScroll);
       return () => window.removeEventListener('scroll', handleScroll);

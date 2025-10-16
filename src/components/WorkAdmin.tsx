@@ -19,8 +19,9 @@ const WorkAdmin: React.FC = () => {
   const [draggedItem, setDraggedItem] = useState<number | null>(null);
 
   useEffect(() => {
-    // Sort by order
-    setWorkItems([...workItems].sort((a, b) => a.order - b.order));
+    // Sort by order on mount only
+    setWorkItems(prevItems => [...prevItems].sort((a, b) => a.order - b.order));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAddItem = async () => {

@@ -8,8 +8,15 @@
 # testing
 /coverage
 
-# production
+# production builds
 /build
+/dist
+/.next
+/out
+
+# environment variables
+.env
+.env*.local
 
 # misc
 .DS_Store

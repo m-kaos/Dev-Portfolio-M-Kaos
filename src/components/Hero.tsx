@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy, Phone, Check } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import { SiGithub, SiX, SiLinkedin, SiInstagram, SiWhatsapp } from 'react-icons/si';
 import { useNavigation } from '../contexts/NavigationContext';
 import { useLanguage } from '../contexts/LanguageContext';
