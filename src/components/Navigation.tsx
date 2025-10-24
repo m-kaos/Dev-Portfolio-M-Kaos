@@ -177,7 +177,7 @@ const Navigation: React.FC = () => {
       {/* Collapsed Nav Button - Shows when nav is collapsed */}
       <button
         onClick={toggleCollapse}
-        className={`fixed left-10 top-12 z-50 p-3 border border-border rounded-xl hover:bg-accent/10 hover:text-accent hover:border-accent transition-all duration-300 ${
+        className={`fixed left-4 top-4 md:left-10 md:top-12 z-50 p-3 border border-border rounded-xl hover:bg-accent/10 hover:text-accent hover:border-accent transition-all duration-300 ${
           isCollapsed ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20 pointer-events-none'
         }`}
         aria-label="Open navigation"
