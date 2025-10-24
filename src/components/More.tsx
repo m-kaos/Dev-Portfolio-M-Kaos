@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
-import { useLanguage } from '../contexts/LanguageContext';
-import { translations } from '../translations/translations';
 import musicImage from '../imgs/music.webp';
 import gameImage from '../imgs/star citizen.webp';
 
 const More: React.FC = () => {
   const { theme } = useTheme();
-  const { language } = useLanguage();
 
   const cards = [
     {
