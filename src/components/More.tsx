@@ -9,7 +9,6 @@ import gameImage from '../imgs/star citizen.webp';
 const More: React.FC = () => {
   const { theme } = useTheme();
   const { language } = useLanguage();
-  const t = translations[language];
 
   const cards = [
     {
