@@ -13,8 +13,16 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [theme, setTheme] = useState<Theme>('glass');
 
   useEffect(() => {
-    // Apply theme class to document root
-    document.documentElement.className = theme;
+    // Add a micro-delay to ensure smooth transition
+    const root = document.documentElement;
+
+    // Force a reflow to ensure transitions are smooth
+    root.style.transition = 'background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+
+    // Apply theme class
+    requestAnimationFrame(() => {
+      root.className = theme;
+    });
   }, [theme]);
 
   return (

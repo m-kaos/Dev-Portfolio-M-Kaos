@@ -54,7 +54,7 @@ const MyWork: React.FC = () => {
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`block rounded-2xl p-8 hover:shadow-lg transition-all cursor-pointer ${
+              className={`group block rounded-2xl p-8 hover:shadow-lg transition-all cursor-pointer ${
                 theme === 'glass'
                   ? 'glass-card hover:bg-white/20'
                   : 'border border-border hover:border-accent'
@@ -70,7 +70,7 @@ const MyWork: React.FC = () => {
                   <iframe
                     src={item.url}
                     title={`${item.title} preview`}
-                    className="w-full h-full border-0 scale-[0.25] origin-top-left"
+                    className="w-full h-full border-0 scale-[0.25] origin-top-left grayscale group-hover:grayscale-0 transition-all duration-500"
                     style={{ width: '400%', height: '400%' }}
                   />
                 </div>

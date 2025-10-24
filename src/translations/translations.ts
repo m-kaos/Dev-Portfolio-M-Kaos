@@ -6,6 +6,7 @@ export const translations = {
       work: 'Work',
       about: 'About',
       blog: 'Blog',
+      more: 'More',
       quickDM: 'Quick DM',
     },
     // Hero Section
@@ -78,6 +79,7 @@ export const translations = {
       work: 'Trabajo',
       about: 'Acerca de',
       blog: 'Blog',
+      more: 'Más',
       quickDM: 'Mensaje Rápido',
     },
     // Sección Hero
@@ -150,6 +152,7 @@ export const translations = {
       work: 'Travail',
       about: 'À propos',
       blog: 'Blog',
+      more: 'Plus',
       quickDM: 'Message Rapide',
     },
     // Section Hero

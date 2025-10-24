@@ -89,6 +89,9 @@
 @layer base {
   * {
     @apply border-border;
+    transition-property: background-color, border-color, color, fill, stroke, opacity;
+    transition-duration: 0.6s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
   body {
     @apply bg-background text-foreground font-sans;
@@ -113,6 +116,7 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glass-card {
@@ -120,6 +124,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glass-button {
@@ -127,6 +132,7 @@
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glass-button:hover {

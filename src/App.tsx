@@ -3,9 +3,13 @@ import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import MyWork from './components/MyWork';
 import About from './components/About';
+import More from './components/More';
 import ThemeSelector from './components/ThemeSelector';
 import CustomScrollbar from './components/CustomScrollbar';
 import WorkAdmin from './components/WorkAdmin';
+import Blog from './components/Blog';
+import BlogList from './components/BlogList';
+import BlogPost from './components/BlogPost';
 import { NavigationProvider, useNavigation } from './contexts/NavigationContext';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
@@ -59,9 +63,13 @@ function MainLayout() {
             <About />
           </section>
 
-          {/*<section id="blog">
+          <section id="blog">
             <Blog />
-          </section>*/}
+          </section>
+
+          <section id="more">
+            <More />
+          </section>
 
           {/* Footer */}
           <footer id="footer" className="px-6 py-12 border-t border-border">
@@ -92,11 +100,49 @@ function MainLayout() {
   );
 }
 
+function BlogListLayout() {
+  const { theme } = useTheme();
+
+  return (
+    <div className="min-h-screen bg-secondary relative">
+      {theme === 'glass' && (
+        <div className="fixed inset-0 z-0">
+          <ShaderAnimation />
+        </div>
+      )}
+      <Navigation />
+      <ThemeSelector />
+      <CustomScrollbar lineCount={50} activeLinesCount={3} />
+      <BlogList />
+    </div>
+  );
+}
+
+function BlogPostLayout() {
+  const { theme } = useTheme();
+
+  return (
+    <div className="min-h-screen bg-secondary relative">
+      {theme === 'glass' && (
+        <div className="fixed inset-0 z-0">
+          <ShaderAnimation />
+        </div>
+      )}
+      <Navigation />
+      <ThemeSelector />
+      <CustomScrollbar lineCount={50} activeLinesCount={3} />
+      <BlogPost />
+    </div>
+  );
+}
+
 function AppContent() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<MainLayout />} />
+        <Route path="/blog" element={<BlogListLayout />} />
+        <Route path="/blog/:slug" element={<BlogPostLayout />} />
         <Route path="/admin/work" element={<WorkAdmin />} />
       </Routes>
     </Router>
