@@ -13,7 +13,7 @@ const More: React.FC = () => {
       title: 'Music Portfolio',
       description: 'Explore my musical journey, compositions, and creative process',
       image: musicImage,
-      link: '/music',
+      link: 'https://music.m-kaos.com',
       gradient: 'from-purple-500/20 to-pink-500/20',
     },
     {
@@ -21,7 +21,7 @@ const More: React.FC = () => {
       title: 'GG',
       description: 'Dive into my gaming world, favorite titles, and experiences',
       image: gameImage,
-      link: '/games',
+      link: 'https://gg.m-kaos.com',
       gradient: 'from-blue-500/20 to-cyan-500/20',
     },
   ];
