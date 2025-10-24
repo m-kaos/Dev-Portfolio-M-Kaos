@@ -90,7 +90,7 @@ const Navigation: React.FC = () => {
           isCollapsed ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100'
         }`}
       >
-        <div className="h-full w-52 flex flex-col justify-between ml-2 p-6">
+        <div className="h-full w-52 flex flex-col justify-between ml-2 p-6 md:bg-transparent bg-secondary border-r md:border-0 border-border">
           {/* Top Section */}
           <div>
             {/* Search and Toggle buttons - Search expands to the left */}
