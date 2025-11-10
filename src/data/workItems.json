@@ -1,11 +1,27 @@
 [
   {
+    "id": 1,
+    "url": "https://homeopathy.pages.dev",
+    "title": "Homeopatía Monterrey - Dr. Sergio Luis",
+    "date": "2025",
+    "description": "Homeopathy medical website for Dr. Sergio Luis in Monterrey, Mexico. Information about homeopathy, treatments, and contact details.",
+    "order": 1
+  },
+  {
+    "id": 1760390059158,
+    "url": "https://kinglyus.com/",
+    "description": "Logistics and transportation services for businesses of all sizes.",
+    "title": "Kingly US",
+    "date": "2025",
+    "order": 2
+  },
+  {
     "id": 1760390059158,
     "url": "https://kairos.m-kaos.com/",
     "description": "Automation and smart systems, solving problems of any business.",
     "title": "Kairos",
     "date": "2025",
-    "order": 1
+    "order": 3
   },
   {
     "id": 1760388718538,
@@ -13,14 +29,14 @@
     "description": "Landing Page and Quoting System - Complete web application for business logistics management with integrated quoting functionality. Mobile and desktop versions.",
     "title": "Inicio - Logistica y Transporte",
     "date": "2025",
-    "order": 2
+    "order": 4
   },
   {
     "id": 1,
-    "url": "https://resilient-rootssustainable-shoots.m-kaos.com",
+    "url": "https://lesresilients.pages.dev",
     "title": "Resilient Roots & Sustainable Shoots",
     "date": "2024",
     "description": "Inspired by the life cycle of fungi, this project reimagines Chimilin's former school as a community coworking center, while expanding Les Grands Ateliers with residences, a park, commerce, and a co-creation lab.",
-    "order": 3
+    "order": 5
   }
 ]
