@@ -56,8 +56,15 @@ const Hero: React.FC = () => {
           >
             {t.description} <span className="font-semibold text-foreground">React</span> {t.and}{' '}
             <span className="font-semibold text-foreground">Next.js</span>. {t.specializing}{' '}
-            <span className="font-semibold text-foreground">AI automation workflows</span>,{' '}
-            <span className="font-semibold text-foreground">{t.chatbots}</span>, {t.customAgents}
+            <span className="font-semibold text-foreground"> <a href="https://kairos.m-kaos.com" className="hover:text-accent transition-colors">AI automation workflows,{' '}
+            </a>
+            </span>{t.chatbots}
+            <span className="font-semibold text-foreground"></span>, {t.customAgents}. <br /> {t.haru}
+            <span className="font-semibold text-foreground"> <a href="https://harustudio.com.mx" className="hover:text-accent transition-colors">
+                    Harü Studio
+            </a>. 
+            </span>
+            
           </p>
         </div>
 
