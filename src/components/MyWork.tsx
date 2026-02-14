@@ -79,17 +79,6 @@ const MyWork: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <button
-            className={`px-8 py-3 rounded-full transition-colors ${
-              theme === 'glass'
-                ? 'glass-button hover:bg-white/25 text-foreground'
-                : 'border border-border hover:bg-accent/10 hover:border-accent hover:text-accent'
-            }`}
-          >
-            View all projects
-          </button>
-        </div>
       </div>
     </section>
   );
