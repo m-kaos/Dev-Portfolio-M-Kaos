@@ -1,27 +1,11 @@
 [
   {
-    "id": 1,
-    "url": "https://homeopatas-monterrey.vercel.app",
-    "title": "Homeopatía Monterrey - Dr. Sergio Luis",
+    "id": 1760390059160,
+    "url": "https://persona-club.vercel.app/",
+    "title": "Persona Club",
     "date": "2025",
-    "description": "Homeopathy medical website for Dr. Sergio Luis in Monterrey, Mexico. Information about homeopathy, treatments, and contact details.",
+    "description": "Persona Club community platform.",
     "order": 1
-  },
-  {
-    "id": 2,
-    "url": "https://solpower.vercel.app/",
-    "title": "Sol Power",
-    "date": "2025",
-    "description": "Sol Power solar energy solutions website.",
-    "order": 2
-  },
-  {
-    "id": 1760390059158,
-    "url": "https://kinglyus.com/",
-    "description": "Logistics and transportation services for businesses of all sizes.",
-    "title": "Kingly US",
-    "date": "2025",
-    "order": 3
   },
   {
     "id": 3,
@@ -29,7 +13,31 @@
     "title": "Vallarta Arquitectos",
     "date": "2025",
     "description": "Architecture firm website for Vallarta Arquitectos.",
+    "order": 2
+  },
+  {
+    "id": 1760390059161,
+    "url": "https://masterclass.coachdiiaz.com/",
+    "title": "Masterclass: Cómo Armar Tu Rutina — Coach Diiaz",
+    "date": "2025",
+    "description": "Online fitness masterclass teaching how to build personalized workout routines through science-based training principles.",
+    "order": 3
+  },
+  {
+    "id": 1760390059162,
+    "url": "https://energy-cooler-green.vercel.app/",
+    "title": "Energy Cooler Green",
+    "date": "2025",
+    "description": "Commercial and industrial air conditioning and refrigeration solutions and services.",
     "order": 4
+  },
+  {
+    "id": 1760390059158,
+    "url": "https://kinglyus.com/",
+    "description": "Logistics and transportation services for businesses of all sizes.",
+    "title": "Kingly US",
+    "date": "2025",
+    "order": 5
   },
   {
     "id": 1760390059159,
@@ -37,7 +45,7 @@
     "description": "Automation and smart systems, solving problems of any business.",
     "title": "Kairos",
     "date": "2025",
-    "order": 5
+    "order": 6
   },
   {
     "id": 1760388718538,
@@ -45,7 +53,23 @@
     "description": "Landing Page and Quoting System - Complete web application for business logistics management with integrated quoting functionality. Mobile and desktop versions.",
     "title": "Inicio - Logistica y Transporte",
     "date": "2025",
-    "order": 6
+    "order": 7
+  },
+  {
+    "id": 1,
+    "url": "https://homeopatas-monterrey.vercel.app",
+    "title": "Homeopatía Monterrey - Dr. Sergio Luis",
+    "date": "2025",
+    "description": "Homeopathy medical website for Dr. Sergio Luis in Monterrey, Mexico. Information about homeopathy, treatments, and contact details.",
+    "order": 8
+  },
+  {
+    "id": 2,
+    "url": "https://solpower.vercel.app/",
+    "title": "Sol Power",
+    "date": "2025",
+    "description": "Sol Power solar energy solutions website.",
+    "order": 9
   },
   {
     "id": 4,
@@ -53,6 +77,6 @@
     "title": "Resilient Roots & Sustainable Shoots",
     "date": "2024",
     "description": "Inspired by the life cycle of fungi, this project reimagines Chimilin's former school as a community coworking center, while expanding Les Grands Ateliers with residences, a park, commerce, and a co-creation lab.",
-    "order": 7
+    "order": 10
   }
 ]
