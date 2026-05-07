@@ -101,7 +101,7 @@ const About: React.FC = () => {
             <div className="pt-6">
               <h4 className="text-xl font-light mb-4">{t.skillsTitle}</h4>
               <div className="flex flex-wrap gap-2">
-                {['HTML5', 'CSS3', 'Tailwind', 'React', 'Javascript', 'Typescript', 'Next.js', 'Docker', 'AWS', 'Google Cloud', 'Firebase', 'AI Agents', 'n8n', 'Chatbots', 'Automation', 'SEO', 'Branding'].map(
+                {['HTML5', 'CSS3', 'Tailwind', 'React', 'Javascript', 'Typescript', 'Next.js', 'Kommo', 'GoHighLevel', 'Klaviyo', 'Metricool', 'Firebase', 'AI Agents', 'n8n', 'Chatbots', 'Automation', 'SEO', 'Branding'].map(
                   (skill) => (
                     <span
                       key={skill}
@@ -117,22 +117,12 @@ const About: React.FC = () => {
             <div className="pt-6">
               <h4 className="text-xl font-light mb-4">{t.servicesTitle}</h4>
               <div className="space-y-4">
-                <div className="border-l-2 border-accent pl-4 hover:border-accent/50 transition-colors">
-                  <p className="font-medium">{t.services.automation.title}</p>
-                  <p className="text-sm text-muted-foreground">{t.services.automation.description}</p>
-                </div>
-                <div className="border-l-2 border-accent pl-4 hover:border-accent/50 transition-colors">
-                  <p className="font-medium">{t.services.webDev.title}</p>
-                  <p className="text-sm text-muted-foreground">{t.services.webDev.description}</p>
-                </div>
-                <div className="border-l-2 border-accent pl-4 hover:border-accent/50 transition-colors">
-                  <p className="font-medium">{t.services.appDev.title}</p>
-                  <p className="text-sm text-muted-foreground">{t.services.appDev.description}</p>
-                </div>
-                <div className="border-l-2 border-border pl-4 hover:border-accent/20 transition-colors">
-                  <p className="font-medium">{t.services.seo.title}</p>
-                  <p className="text-sm text-muted-foreground">{t.services.seo.description}</p>
-                </div>
+                {(Object.values(t.services) as { title: string; description: string }[]).map((service) => (
+                  <div key={service.title} className="border-l-2 border-accent pl-4 hover:border-accent/50 transition-colors">
+                    <p className="font-medium">{service.title}</p>
+                    <p className="text-sm text-muted-foreground">{service.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
