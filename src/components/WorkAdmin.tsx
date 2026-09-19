@@ -9,6 +9,7 @@ interface WorkItem {
   order: number;
   title?: string;
   date?: string;
+  thumbnail?: string;
 }
 
 const WorkAdmin: React.FC = () => {
@@ -16,6 +17,7 @@ const WorkAdmin: React.FC = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [newUrl, setNewUrl] = useState('');
   const [newDescription, setNewDescription] = useState('');
+  const [newThumbnail, setNewThumbnail] = useState('');
   const [draggedItem, setDraggedItem] = useState<number | null>(null);
 
   useEffect(() => {
@@ -40,12 +42,14 @@ const WorkAdmin: React.FC = () => {
         description: newDescription,
         title: data.data?.title || 'Untitled Project',
         date: new Date().getFullYear().toString(),
+        thumbnail: newThumbnail.trim() || undefined,
         order: workItems.length + 1,
       };
 
       setWorkItems([...workItems, newItem]);
       setNewUrl('');
       setNewDescription('');
+      setNewThumbnail('');
       setIsAdding(false);
     } catch (error) {
       console.error('Error fetching metadata:', error);
@@ -147,6 +151,21 @@ const WorkAdmin: React.FC = () => {
                   placeholder="Project description..."
                   rows={3}
                   className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-accent resize-none"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">
+                  Thumbnail path
+                  <span className="ml-2 font-normal text-muted-foreground">
+                    optional &mdash; falls back to a domain tile
+                  </span>
+                </label>
+                <input
+                  type="text"
+                  value={newThumbnail}
+                  onChange={(e) => setNewThumbnail(e.target.value)}
+                  placeholder="/thumbs/my-project.webp"
+                  className="w-full px-4 py-2 border border-border rounded-lg bg-background focus:outline-none focus:ring-2 focus:ring-accent"
                 />
               </div>
               <button

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
@@ -6,14 +7,15 @@ import About from './components/About';
 import More from './components/More';
 import ThemeSelector from './components/ThemeSelector';
 import CustomScrollbar from './components/CustomScrollbar';
-import WorkAdmin from './components/WorkAdmin';
 import Blog from './components/Blog';
-import BlogList from './components/BlogList';
-import BlogPost from './components/BlogPost';
 import { NavigationProvider, useNavigation } from './contexts/NavigationContext';
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
-import { ShaderAnimation } from "./components/shader-lines";
+import { ShaderAnimation } from './components/shader-lines';
+
+const WorkAdmin = lazy(() => import('./components/WorkAdmin'));
+const BlogList = lazy(() => import('./components/BlogList'));
+const BlogPost = lazy(() => import('./components/BlogPost'));
 
 function MainLayout() {
   const { isCollapsed } = useNavigation();
@@ -139,12 +141,14 @@ function BlogPostLayout() {
 function AppContent() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<MainLayout />} />
-        <Route path="/blog" element={<BlogListLayout />} />
-        <Route path="/blog/:slug" element={<BlogPostLayout />} />
-        <Route path="/admin/work" element={<WorkAdmin />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen bg-secondary" />}>
+        <Routes>
+          <Route path="/" element={<MainLayout />} />
+          <Route path="/blog" element={<BlogListLayout />} />
+          <Route path="/blog/:slug" element={<BlogPostLayout />} />
+          <Route path="/admin/work" element={<WorkAdmin />} />
+        </Routes>
+      </Suspense>
     </Router>
   );
 }
