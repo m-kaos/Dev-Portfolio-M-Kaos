@@ -1,19 +1,39 @@
 [
   {
-    "id": 1760390059160,
-    "url": "https://persona-club.vercel.app/",
-    "title": "Persona Club",
-    "date": "2025",
-    "description": "Persona Club community platform.",
+    "id": 1774000000001,
+    "url": "https://lia-skincare-clinic-5oa6k2rb8-m-kaos.vercel.app",
+    "title": "LIA Skincare Clinic",
+    "date": "2026",
+    "description": "Aesthetic facial medicine clinic in Querétaro. Patient area with passwordless phone-code login, a catalogue of 44 documented treatments and a 360° tour of the clinic.",
+    "thumbnail": "/thumbs/lia-skincare-clinic.webp",
     "order": 1
   },
   {
-    "id": 3,
-    "url": "https://vallartaarquitectos.com/",
-    "title": "Vallarta Arquitectos",
-    "date": "2025",
-    "description": "Architecture firm website for Vallarta Arquitectos.",
+    "id": 1774000000002,
+    "url": "https://casaiktan-web.centinela-b9b.workers.dev/",
+    "title": "Casa Iktan",
+    "date": "2026",
+    "description": "Custom residential furniture studio in Querétaro. Kitchens, closets and bathrooms designed around the architecture of each home and built in their own workshop.",
+    "thumbnail": "/thumbs/casa-iktan.webp",
     "order": 2
+  },
+  {
+    "id": 1774000000003,
+    "url": "https://agenda.auditivosdemexico.com.mx/",
+    "title": "Auditivos de México",
+    "date": "2026",
+    "description": "Booking site for a hearing care provider with 50+ years and four branches across CDMX and Estado de México. Free hearing evaluations confirmed over WhatsApp.",
+    "thumbnail": "/thumbs/auditivos-de-mexico.webp",
+    "order": 3
+  },
+  {
+    "id": 1774000000004,
+    "url": "https://esmerally-2.vercel.app/",
+    "title": "Esmerally",
+    "date": "2026",
+    "description": "E-commerce for a women's supplement brand. Product bundles, subscription pricing at 20% off and a 30-day money-back guarantee.",
+    "thumbnail": "/thumbs/esmerally.webp",
+    "order": 4
   },
   {
     "id": 1760390059161,
@@ -21,23 +41,61 @@
     "title": "Masterclass: Cómo Armar Tu Rutina — Coach Diiaz",
     "date": "2025",
     "description": "Online fitness masterclass teaching how to build personalized workout routines through science-based training principles.",
-    "order": 3
-  },
-  {
-    "id": 1760390059158,
-    "url": "https://kinglyus.com/",
-    "description": "Logistics and transportation services for businesses of all sizes.",
-    "title": "Kingly US",
-    "date": "2025",
-    "order": 4
-  },
-  {
-    "id": 1760388718538,
-    "url": "https://jar-logistics.com/",
-    "description": "Landing Page and Quoting System - Complete web application for business logistics management with integrated quoting functionality. Mobile and desktop versions.",
-    "title": "Inicio - Logistica y Transporte",
-    "date": "2025",
+    "thumbnail": "/thumbs/coach-diiaz-masterclass.webp",
     "order": 5
+  },
+  {
+    "id": 1774000000005,
+    "url": "https://tostaditashidalgo.com.mx",
+    "title": "Tostaditas Hidalgo",
+    "date": "2026",
+    "description": "Brand site for a nixtamalized corn tostada maker running the same recipe since 1967. Two varieties, two pack sizes and a direct channel for distributors.",
+    "thumbnail": "/thumbs/tostaditas-hidalgo.webp",
+    "order": 6
+  },
+  {
+    "id": 3,
+    "url": "https://vallartaarquitectos.com/",
+    "title": "Vallarta Arquitectos",
+    "date": "2025",
+    "description": "Architecture firm website for Vallarta Arquitectos.",
+    "thumbnail": "/thumbs/vallarta-arquitectos.webp",
+    "order": 7
+  },
+  {
+    "id": 1774000000006,
+    "url": "https://carlos-estrada-e225v8329-m-kaos.vercel.app",
+    "title": "Asesor Carlos Estrada",
+    "date": "2026",
+    "description": "Personal brand site for advisor Carlos Estrada.",
+    "order": 8
+  },
+  {
+    "id": 1760390059160,
+    "url": "https://persona-club.vercel.app/",
+    "title": "Persona Club",
+    "date": "2025",
+    "description": "Persona Club community platform.",
+    "thumbnail": "/thumbs/persona-club.webp",
+    "order": 9
+  },
+  {
+    "id": 1774000000007,
+    "url": "https://grillmonterrey.com/",
+    "title": "Grill Monterrey",
+    "date": "2026",
+    "description": "Made-to-measure grill manufacturer. Six base lines of charcoal, gas and hybrid grills built in 304 stainless steel to the customer's own dimensions.",
+    "thumbnail": "/thumbs/grill-monterrey.webp",
+    "order": 10
+  },
+  {
+    "id": 1774000000008,
+    "url": "https://tetematatena-rework.vercel.app/d2",
+    "title": "Teté y Matatena",
+    "date": "2026",
+    "description": "Children's books and stationery catalogue for Editorial García. Five colour-coded sections covering reading, activities, stationery and teaching material.",
+    "thumbnail": "/thumbs/te-de-matatena.webp",
+    "order": 11
   },
   {
     "id": 1,
@@ -45,7 +103,26 @@
     "title": "Homeopatía Monterrey - Dr. Sergio Luis",
     "date": "2025",
     "description": "Homeopathy medical website for Dr. Sergio Luis in Monterrey, Mexico. Information about homeopathy, treatments, and contact details.",
-    "order": 6
+    "thumbnail": "/thumbs/homeopatia-monterrey.webp",
+    "order": 12
+  },
+  {
+    "id": 1760388718538,
+    "url": "https://jar-logistics.com/",
+    "title": "Logística y Transporte",
+    "date": "2025",
+    "description": "Landing Page and Quoting System - Complete web application for business logistics management with integrated quoting functionality. Mobile and desktop versions.",
+    "thumbnail": "/thumbs/jar-logistics.webp",
+    "order": 13
+  },
+  {
+    "id": 1760390059158,
+    "url": "https://kinglyus.com/",
+    "title": "Kingly US",
+    "date": "2025",
+    "description": "Logistics and transportation services for businesses of all sizes.",
+    "thumbnail": "/thumbs/kingly-us.webp",
+    "order": 14
   },
   {
     "id": 2,
@@ -53,7 +130,8 @@
     "title": "Sol Power",
     "date": "2025",
     "description": "Sol Power solar energy solutions website.",
-    "order": 7
+    "thumbnail": "/thumbs/sol-power.webp",
+    "order": 15
   },
   {
     "id": 4,
@@ -61,6 +139,7 @@
     "title": "Resilient Roots & Sustainable Shoots",
     "date": "2024",
     "description": "Inspired by the life cycle of fungi, this project reimagines Chimilin's former school as a community coworking center, while expanding Les Grands Ateliers with residences, a park, commerce, and a co-creation lab.",
-    "order": 8
+    "thumbnail": "/thumbs/resilient-roots.webp",
+    "order": 16
   }
 ]
