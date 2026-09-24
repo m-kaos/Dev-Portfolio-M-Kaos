@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Search, PanelLeftClose, PanelLeft, Home, Briefcase, PenLine, Mail, Send, MoreHorizontal } from 'lucide-react';
+import { Search, PanelLeftClose, PanelLeft, Home, Briefcase, PenLine, Mail, Send, MoreHorizontal, Tag } from 'lucide-react';
 import { useNavigation } from '../contexts/NavigationContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../translations/translations';
 import LanguageSelector from './LanguageSelector';
 import QuickDM from './QuickDM';
+import { OPEN_QUICK_DM_EVENT } from '../lib/events';
 
 const Navigation: React.FC = () => {
   const { isCollapsed, toggleCollapse } = useNavigation();
@@ -21,10 +22,18 @@ const Navigation: React.FC = () => {
   const menuItems = [
     { name: t.home, href: 'home', icon: Home },
     { name: t.work, href: 'work', icon: Briefcase },
+    { name: t.services, href: 'services', icon: Tag },
     { name: t.about, href: 'about', icon: Mail },
     { name: t.blog, href: 'blog', icon: PenLine },
     { name: t.more, href: 'more', icon: MoreHorizontal },
   ];
+
+  // Let any section open the Quick DM panel without lifting this state up.
+  useEffect(() => {
+    const openDM = (): void => setIsDMOpen(true);
+    window.addEventListener(OPEN_QUICK_DM_EVENT, openDM);
+    return () => window.removeEventListener(OPEN_QUICK_DM_EVENT, openDM);
+  }, []);
 
   // Handle click outside to close search bar
   useEffect(() => {

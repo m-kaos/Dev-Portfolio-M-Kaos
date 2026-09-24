@@ -27,7 +27,7 @@ const About: React.FC = () => {
     <section className="min-h-screen px-6 py-20">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-16">
-          <h2 className="text-6xl md:text-8xl font-light">02</h2>
+          <h2 className="text-6xl md:text-8xl font-light">03</h2>
           <h3 className="text-3xl md:text-4xl font-light">{t.title}</h3>
         </div>
 

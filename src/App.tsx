@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
 import MyWork from './components/MyWork';
+import { ServicesSection } from './components/services/services-section';
 import About from './components/About';
 import More from './components/More';
 import ThemeSelector from './components/ThemeSelector';
@@ -59,6 +60,10 @@ function MainLayout() {
 
           <section id="work">
             <MyWork />
+          </section>
+
+          <section id="services">
+            <ServicesSection />
           </section>
 
           <section id="about">

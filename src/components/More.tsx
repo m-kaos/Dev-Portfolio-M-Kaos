@@ -30,7 +30,7 @@ const More: React.FC = () => {
     <section className="min-h-screen px-6 py-20 flex items-center">
       <div className="max-w-6xl mx-auto w-full">
         <div className="flex items-center justify-between mb-16">
-          <h2 className="text-6xl md:text-8xl font-light">04</h2>
+          <h2 className="text-6xl md:text-8xl font-light">05</h2>
           <h3 className="text-3xl md:text-4xl font-light">More about me</h3>
         </div>
 
