@@ -55,13 +55,13 @@ const About: React.FC = () => {
               {/* WhatsApp and Email Buttons */}
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="https://wa.me/528118521080"
+                  href="https://wa.me/5218128779137"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-6 py-3 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors flex items-center gap-2 justify-center"
                 >
                   <WhatsappIcon className="w-4 h-4" />
-                  +(52) 8118-521080
+                  +52 81 2877 9137
                 </a>
                 <button
                   onClick={handleCopyEmail}
