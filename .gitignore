@@ -30,3 +30,7 @@ yarn-debug.log*
 yarn-error.log*
 
 wrangler.toml
+
+# local agent tooling (regenerated per machine)
+.atl/
+.playwright-mcp/

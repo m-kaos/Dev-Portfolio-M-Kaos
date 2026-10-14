@@ -1,46 +1,123 @@
 # DevMKaos Portfolio
 
-A modern developer portfolio built with React, TypeScript, and Tailwind CSS, inspired by contemporary portfolio designs.
+Personal portfolio for Mauricio Guerra Navarro (KAOS). Dark editorial single page
+with a work gallery, a priced service catalogue, and a blog, in English, Spanish
+and French.
 
-## Available Scripts
+Live repo: `m-kaos/Dev-Portfolio-M-Kaos`
 
-In the project directory, you can run:
+## Stack — read this first
 
-### `npm start`
+**This project is Create React App, not Next.js.** The global KAOS conventions
+default to Next.js 15 + App Router + Tailwind v4; this repo predates that and has
+not been migrated. Do not introduce Next.js imports, server components, the `@/`
+alias or Tailwind v4 syntax here.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| | |
+|---|---|
+| Build | `react-scripts` 5 (CRA) |
+| UI | React 19, TypeScript 4.9 |
+| Styling | Tailwind **v3**, tokens as HSL CSS variables in `src/index.css` |
+| Routing | `react-router-dom` 7, routes in `src/App.tsx` |
+| Icons | `lucide-react`, plus `react-icons/si` for brand marks |
+| Imports | relative paths — there is no path alias configured |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Three themes switch the token block: default, `.dark`, `.glass`. The glass theme
+renders a fullscreen WebGL shader behind the content.
 
-### `npm test`
+## Scripts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm start        # dev server on :3000
+npm run build    # production build into build/
+npm test         # CRA test runner
+```
 
-### `npm run build`
+To view a production build locally, serve `build/` on a static server; the app is
+a single page, so any static host works for the home route.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Layout
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Sections are numbered in the UI and must stay in sync with `src/App.tsx` order:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| # | Section | Component |
+|---|---|---|
+| 01 | Work | `src/components/MyWork.tsx` |
+| 02 | Services | `src/components/services/services-section.tsx` |
+| 03 | About | `src/components/About.tsx` |
+| 04 | Blog | `src/components/Blog.tsx` |
+| 05 | More | `src/components/More.tsx` |
 
-### `npm run eject`
+Renumbering means editing the literal in each component **and** the nav list in
+`src/components/Navigation.tsx`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Data
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Work items
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`src/data/workItems.json` — one entry per project: `id`, `url`, `title`, `date`,
+`description`, `order`, and an optional `thumbnail`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Previews are **static WebP screenshots**, never live iframes. An entry without a
+`thumbnail` falls back to a typographic domain tile, so a project can ship before
+its screenshot does.
 
-## Learn More
+To add a screenshot: capture the site at 1280x800, then compress before
+committing. Raw captures land around 500 KB; the whole folder should stay in the
+hundreds of KB.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+ffmpeg -y -i raw.webp -vf "scale=800:-2" -c:v libwebp -quality 76 public/thumbs/<slug>.webp
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`/admin/work` is an unlisted editor that exports the JSON; it knows about
+`thumbnail` and will preserve it.
+
+### Services
+
+`src/lib/services/` keeps structure and prose apart on purpose:
+
+- `catalog.ts` — id, category and price only, plus `SERVICE_CURRENCY`
+- `copy.en.ts` / `copy.es.ts` / `copy.fr.ts` — the words a visitor reads
+- `copy.ts` — resolves copy by language and formats prices through `Intl`
+- `types.ts` — shared types
+
+Prices are in **MXN** and confirmed. `Intl` renders them per locale from one
+number: `MX$3,000` (en), `$3,000` (es), `3 000 $MX` (fr). Adding a service means
+one row in `catalog.ts` and one entry in each of the three copy files.
+
+The catalogue is derived from a private internal document. Only the
+client-facing slice is public — the skills, MCPs and delivery checklists in that
+document are internal method and must stay out of this repo.
+
+## Conventions in this repo
+
+- New components use named exports and kebab-case filenames; older top-level
+  components still use default exports and PascalCase. Match whichever folder you
+  are in rather than rewriting the other half.
+- One component per file, kept under 200 lines.
+- Copy lives in `src/translations/translations.ts` (UI chrome) or in the services
+  copy files. All three languages are real; do not add a string to only one.
+- Touch targets 44px, visible focus rings, WCAG AA contrast.
+- `src/index.css` sets a transition on every element in the base layer. That is
+  deliberate — it carries the theme morph. A `prefers-reduced-motion` guard at the
+  bottom of the file neutralises it.
+
+## Open items
+
+- **Asesor Carlos Estrada has no public URL.** Its link resolves to the Vercel
+  login screen, so it is a protected preview deployment, not a live site. It
+  currently renders the fallback tile. Needs a production URL, a real
+  description, and a screenshot.
+- **LIA Skincare Clinic** uses a deployment-hash URL
+  (`lia-skincare-clinic-5oa6k2rb8-m-kaos.vercel.app`). It resolves today but
+  changes on redeploy. Replace with the production alias.
+- **Teté y Matatena** points at `/d2`. Confirm whether that path is the final
+  route or a design variant.
+- **About contains its own "Services" subsection** with vague capability blurbs
+  that now competes with the priced section 02. Consider renaming it to
+  "Capabilities" or removing it.
+- **`LanguageSelector.tsx` uses flag emojis** for the language buttons, which
+  breaks the no-emoji-in-UI rule. On Windows they render as US/ES/FR letter
+  pairs; on macOS they render as flags. Lucide has no flag set, so this needs a
+  decision rather than a swap.
