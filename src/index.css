@@ -111,10 +111,14 @@
   }
 
   /* Glassmorphism utilities */
+  /* Smoked rather than clear: the panel covers the full height of every route,
+     so whatever shows through it sits behind all the reading text. A white
+     veil at 0.05 left the shader legible through the copy; a dark fill at 0.72
+     keeps the depth and the movement without competing with the words. */
   .glass-panel {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(12, 12, 14, 0.72);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }

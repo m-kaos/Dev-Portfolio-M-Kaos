@@ -227,5 +227,8 @@ export function ShaderAnimation() {
     };
   }, []);
 
-  return <div ref={containerRef} className="absolute h-full w-full" />;
+  // Held under full strength: the panel covers the shader where the reading
+  // happens, but it stays exposed in the margins and behind the side nav, and
+  // at full brightness it pulled the eye there.
+  return <div ref={containerRef} className="absolute h-full w-full opacity-60" />;
 }
