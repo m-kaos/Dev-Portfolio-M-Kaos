@@ -1,69 +1,40 @@
 import { useEffect, useRef } from 'react';
 
-declare global {
-  interface Window {
-    THREE: any;
-  }
-}
-
-const THREE_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/89/three.min.js';
+/**
+ * The glass theme's animated background.
+ *
+ * This used to pull Three.js r89 off a CDN — 517 KB to draw a single quad with
+ * one fragment shader, on a theme that is the site's default, so every visitor
+ * paid for it. There is no scene, camera or geometry here worth a scene graph:
+ * a fullscreen triangle and a shader program is the whole thing, which is what
+ * this does directly against WebGL. The rendered output is unchanged.
+ */
 
 /** Cap the render resolution: this fragment shader runs 15 iterations per pixel. */
 const MAX_PIXEL_RATIO = 1.5;
 const MAX_PIXEL_RATIO_SMALL = 1;
 const SMALL_SCREEN = 768;
 
-let threeLoader: Promise<void> | null = null;
-
-/** Load Three.js once per document and reuse it across mounts. */
-function loadThree(): Promise<void> {
-  if (window.THREE) return Promise.resolve();
-  if (threeLoader) return threeLoader;
-
-  threeLoader = new Promise<void>((resolve, reject) => {
-    const script = document.createElement('script');
-    script.src = THREE_SRC;
-    script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => {
-      threeLoader = null;
-      reject(new Error('Failed to load Three.js'));
-    };
-    document.head.appendChild(script);
-  });
-
-  return threeLoader;
-}
-
-function pixelRatioFor(width: number): number {
-  const cap = width < SMALL_SCREEN ? MAX_PIXEL_RATIO_SMALL : MAX_PIXEL_RATIO;
-  return Math.min(window.devicePixelRatio || 1, cap);
-}
-
-const vertexShader = `
+const VERTEX_SHADER = `
+  attribute vec2 position;
   void main() {
-    gl_Position = vec4( position, 1.0 );
+    gl_Position = vec4(position, 0.0, 1.0);
   }
 `;
 
-const fragmentShader = `
-  #define TWO_PI 6.2831853072
-  #define PI 3.14159265359
-
+const FRAGMENT_SHADER = `
+  #ifdef GL_FRAGMENT_PRECISION_HIGH
   precision highp float;
+  #else
+  precision mediump float;
+  #endif
+
   uniform vec2 resolution;
   uniform float time;
 
   float random (in float x) {
       return fract(sin(x)*1e4);
   }
-  float random (vec2 st) {
-      return fract(sin(dot(st.xy,
-                           vec2(12.9898,78.233)))*
-          43758.5453123);
-  }
-
-  varying vec2 vUv;
 
   void main(void) {
     vec2 uv = (gl_FragCoord.xy * 2.0 - resolution.xy) / min(resolution.x, resolution.y);
@@ -87,6 +58,26 @@ const fragmentShader = `
   }
 `;
 
+function pixelRatioFor(width: number): number {
+  const cap = width < SMALL_SCREEN ? MAX_PIXEL_RATIO_SMALL : MAX_PIXEL_RATIO;
+  return Math.min(window.devicePixelRatio || 1, cap);
+}
+
+function compileShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null {
+  const shader = gl.createShader(type);
+  if (!shader) return null;
+
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    gl.deleteShader(shader);
+    return null;
+  }
+
+  return shader;
+}
+
 export function ShaderAnimation() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -94,105 +85,145 @@ export function ShaderAnimation() {
     const container = containerRef.current;
     if (!container) return;
 
-    let disposed = false;
+    const canvas = document.createElement('canvas');
+    canvas.style.display = 'block';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+
+    const gl = canvas.getContext('webgl', {
+      alpha: false,
+      antialias: false,
+      depth: false,
+      stencil: false,
+      powerPreference: 'low-power',
+    }) as WebGLRenderingContext | null;
+
+    // The background is decorative: no WebGL means no background, not a crash.
+    if (!gl) return;
+
+    const vertexShader = compileShader(gl, gl.VERTEX_SHADER, VERTEX_SHADER);
+    const fragmentShader = compileShader(gl, gl.FRAGMENT_SHADER, FRAGMENT_SHADER);
+    const program = gl.createProgram();
+
+    if (!vertexShader || !fragmentShader || !program) return;
+
+    gl.attachShader(program, vertexShader);
+    gl.attachShader(program, fragmentShader);
+    gl.linkProgram(program);
+
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+      gl.deleteProgram(program);
+      return;
+    }
+
+    gl.useProgram(program);
+
+    // One triangle large enough to cover clip space: cheaper than two, and the
+    // shader only ever reads gl_FragCoord.
+    const buffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+
+    const positionLocation = gl.getAttribLocation(program, 'position');
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+    const resolutionLocation = gl.getUniformLocation(program, 'resolution');
+    const timeLocation = gl.getUniformLocation(program, 'time');
+
+    container.appendChild(canvas);
+
     let animationId: number | null = null;
-    let renderer: any = null;
-    let cleanupListeners: (() => void) | null = null;
+    let time = 1.0;
+    let lastTime = performance.now();
 
-    loadThree()
-      .then(() => {
-        if (disposed || !containerRef.current || !window.THREE) return;
+    const render = (): void => {
+      gl.uniform1f(timeLocation, time);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
 
-        const THREE = window.THREE;
-        const camera = new THREE.Camera();
-        camera.position.z = 1;
+    const resize = (): void => {
+      const rect = container.getBoundingClientRect();
+      const ratio = pixelRatioFor(rect.width);
+      const width = Math.max(1, Math.floor(rect.width * ratio));
+      const height = Math.max(1, Math.floor(rect.height * ratio));
 
-        const scene = new THREE.Scene();
-        const geometry = new THREE.PlaneBufferGeometry(2, 2);
-        const uniforms = {
-          time: { type: 'f', value: 1.0 },
-          resolution: { type: 'v2', value: new THREE.Vector2() },
-        };
+      if (canvas.width === width && canvas.height === height) return;
 
-        const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader });
-        scene.add(new THREE.Mesh(geometry, material));
+      canvas.width = width;
+      canvas.height = height;
+      gl.viewport(0, 0, width, height);
+      gl.uniform2f(resolutionLocation, width, height);
+    };
 
-        renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: 'low-power' });
-        container.appendChild(renderer.domElement);
+    resize();
 
-        const resize = (): void => {
-          const rect = container.getBoundingClientRect();
-          renderer.setPixelRatio(pixelRatioFor(rect.width));
-          renderer.setSize(rect.width, rect.height);
-          uniforms.resolution.value.x = renderer.domElement.width;
-          uniforms.resolution.value.y = renderer.domElement.height;
-        };
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-        resize();
+    const stop = (): void => {
+      if (animationId !== null) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+    };
 
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const frame = (now: number): void => {
+      // Advance by elapsed time so speed is framerate-independent.
+      time += (now - lastTime) * 0.003;
+      lastTime = now;
+      render();
+      animationId = requestAnimationFrame(frame);
+    };
 
-        const stop = (): void => {
-          if (animationId !== null) {
-            cancelAnimationFrame(animationId);
-            animationId = null;
-          }
-        };
+    const start = (): void => {
+      if (animationId !== null) return;
+      if (reduceMotion.matches || document.hidden) {
+        render();
+        return;
+      }
+      lastTime = performance.now();
+      animationId = requestAnimationFrame(frame);
+    };
 
-        let lastTime = performance.now();
+    const onVisibility = (): void => (document.hidden ? stop() : start());
+    const onResize = (): void => {
+      resize();
+      if (animationId === null) render();
+    };
 
-        const frame = (now: number): void => {
-          // Advance by elapsed time so speed is framerate-independent.
-          uniforms.time.value += (now - lastTime) * 0.003;
-          lastTime = now;
-          renderer.render(scene, camera);
-          animationId = requestAnimationFrame(frame);
-        };
+    // A lost context cannot be drawn to; stop rather than spin on failed draws.
+    const onContextLost = (event: Event): void => {
+      event.preventDefault();
+      stop();
+    };
+    const onContextRestored = (): void => {
+      resize();
+      start();
+    };
 
-        const start = (): void => {
-          if (animationId !== null || disposed) return;
-          if (reduceMotion.matches || document.hidden) {
-            renderer.render(scene, camera);
-            return;
-          }
-          lastTime = performance.now();
-          animationId = requestAnimationFrame(frame);
-        };
+    canvas.addEventListener('webglcontextlost', onContextLost);
+    canvas.addEventListener('webglcontextrestored', onContextRestored);
+    window.addEventListener('resize', onResize);
+    document.addEventListener('visibilitychange', onVisibility);
+    reduceMotion.addEventListener('change', onVisibility);
 
-        const onVisibility = (): void => (document.hidden ? stop() : start());
-        const onResize = (): void => {
-          resize();
-          if (animationId === null) renderer.render(scene, camera);
-        };
-
-        window.addEventListener('resize', onResize);
-        document.addEventListener('visibilitychange', onVisibility);
-        reduceMotion.addEventListener('change', onVisibility);
-
-        cleanupListeners = () => {
-          stop();
-          window.removeEventListener('resize', onResize);
-          document.removeEventListener('visibilitychange', onVisibility);
-          reduceMotion.removeEventListener('change', onVisibility);
-          geometry.dispose();
-          material.dispose();
-        };
-
-        start();
-      })
-      .catch(() => {
-        // Background is decorative: a load failure must not break the page.
-      });
+    start();
 
     return () => {
-      disposed = true;
-      if (animationId !== null) cancelAnimationFrame(animationId);
-      cleanupListeners?.();
-      if (renderer) {
-        renderer.forceContextLoss?.();
-        renderer.dispose();
-        renderer.domElement.remove();
-      }
+      stop();
+      canvas.removeEventListener('webglcontextlost', onContextLost);
+      canvas.removeEventListener('webglcontextrestored', onContextRestored);
+      window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
+      reduceMotion.removeEventListener('change', onVisibility);
+
+      gl.deleteBuffer(buffer);
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
+
+      canvas.remove();
     };
   }, []);
 
