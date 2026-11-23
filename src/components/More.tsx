@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import musicImage from '../imgs/music.webp';
-import gameImage from '../imgs/star citizen.webp';
+import gameImage from '../imgs/star-citizen.webp';
 
 const More: React.FC = () => {
   const { theme } = useTheme();
@@ -50,6 +50,8 @@ const More: React.FC = () => {
                 <img
                   src={card.image}
                   alt={card.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover opacity-30 group-hover:opacity-100 transition-opacity duration-700"
                 />
               </div>

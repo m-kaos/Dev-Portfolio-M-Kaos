@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../translations/translations';
-import picture from '../imgs/image.png';
+import picture from '../imgs/about.webp';
 import { SiGithub, SiX, SiLinkedin, SiInstagram, SiWhatsapp } from 'react-icons/si';
 
 // Declare icon components as variables to avoid TS issues
@@ -34,7 +34,15 @@ const About: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-12">
           <div>
             <div className="w-full h-96 bg-gray-200 rounded-2xl mb-8 flex items-center justify-center">
-              <img src={picture} alt="Mauricio Guerra Navarro" className="w-full rounded-2xl h-full object-cover" />
+              <img
+                src={picture}
+                alt="Mauricio Guerra Navarro"
+                width={900}
+                height={1600}
+                loading="lazy"
+                decoding="async"
+                className="w-full rounded-2xl h-full object-cover"
+              />
             </div>
             <p className="text-lg leading-relaxed">
               {t.intro}

@@ -4,7 +4,7 @@ import { SiGithub, SiX, SiLinkedin, SiInstagram, SiWhatsapp } from 'react-icons/
 import { useNavigation } from '../contexts/NavigationContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../translations/translations';
-import profilePic from '../imgs/downloadedImage.png';
+import profilePic from '../imgs/avatar.webp';
 
 const Hero: React.FC = () => {
   const { isCollapsed } = useNavigation();
@@ -38,7 +38,14 @@ const Hero: React.FC = () => {
               isCollapsed ? '' : 'md:mx-auto'
             }`}
           >
-            <img src={profilePic} alt="Mauricio Guerra Navarro" className="w-full h-full object-cover" />
+            <img
+              src={profilePic}
+              alt="Mauricio Guerra Navarro"
+              width={96}
+              height={96}
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
           </div>
           <h1 className="text-5xl md:text-7xl font-light mb-4 transition-all duration-500">
             {t.title}<br />

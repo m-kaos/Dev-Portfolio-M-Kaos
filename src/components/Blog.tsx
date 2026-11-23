@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../contexts/ThemeContext';
 import blogPostsData from '../data/blogPosts.json';
-import blog1 from '../imgs/blog 1.png';
-import blog2 from '../imgs/blog 2.png';
-import blog3 from '../imgs/blog 3.png';
+import blog1 from '../imgs/blog-1.webp';
+import blog2 from '../imgs/blog-2.webp';
+import blog3 from '../imgs/blog-3.webp';
 
 interface BlogPost {
   id: number;
@@ -19,9 +19,9 @@ interface BlogPost {
 }
 
 const imageMap: { [key: string]: string } = {
-  'blog 1.png': blog1,
-  'blog 2.png': blog2,
-  'blog 3.png': blog3,
+  'blog-1.webp': blog1,
+  'blog-2.webp': blog2,
+  'blog-3.webp': blog3,
 };
 
 const Blog: React.FC = () => {
@@ -58,6 +58,10 @@ const Blog: React.FC = () => {
                   <img
                     src={imageMap[post.image] || post.image}
                     alt={post.title}
+                    width={1024}
+                    height={1024}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                   />
                 </div>
