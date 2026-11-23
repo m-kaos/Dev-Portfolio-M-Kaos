@@ -13,6 +13,7 @@ import { NavigationProvider, useNavigation } from './contexts/NavigationContext'
 import { ThemeProvider, useTheme } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ShaderAnimation } from './components/shader-lines';
+import { ScrollToTop } from './components/ScrollToTop';
 
 const WorkAdmin = lazy(() => import('./components/WorkAdmin'));
 const BlogList = lazy(() => import('./components/BlogList'));
@@ -146,6 +147,7 @@ function BlogPostLayout() {
 function AppContent() {
   return (
     <Router>
+      <ScrollToTop />
       <Suspense fallback={<div className="min-h-screen bg-secondary" />}>
         <Routes>
           <Route path="/" element={<MainLayout />} />

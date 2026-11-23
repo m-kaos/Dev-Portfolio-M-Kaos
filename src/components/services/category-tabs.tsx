@@ -14,17 +14,38 @@ export interface CategoryTabsProps {
 }
 
 export function CategoryTabs({ tabs, active, onSelect }: CategoryTabsProps): React.ReactElement {
+  const stripRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef<HTMLButtonElement>(null);
+  const hasSelected = useRef(false);
 
   // On a narrow screen the strip scrolls, so the selected tab can sit off
   // screen and leave the panel looking unlabelled. Keep it in view.
+  //
+  // This has to move the strip and nothing else. `scrollIntoView` ignores that:
+  // it walks every scrollable ancestor up to the document, so on mount it
+  // dragged the whole page down to the services section. Scroll the strip by
+  // the measured horizontal delta instead, and only once the visitor has
+  // actually picked a category.
   useEffect(() => {
-    activeRef.current?.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+    if (!hasSelected.current) {
+      hasSelected.current = true;
+      return;
+    }
+
+    const strip = stripRef.current;
+    const tab = activeRef.current;
+    if (!strip || !tab) return;
+
+    const stripBox = strip.getBoundingClientRect();
+    const tabBox = tab.getBoundingClientRect();
+    const delta = tabBox.left - stripBox.left - (stripBox.width - tabBox.width) / 2;
+
+    strip.scrollBy({ left: delta, behavior: 'smooth' });
   }, [active]);
 
   return (
     // The strip scrolls on its own so a narrow screen never scrolls the page sideways.
-    <div className="-mx-6 overflow-x-auto px-6 pb-px md:mx-0 md:px-0">
+    <div ref={stripRef} className="-mx-6 overflow-x-auto px-6 pb-px md:mx-0 md:px-0">
       <div role="tablist" aria-label="Service categories" className="flex w-max gap-1 border-b border-border md:w-full">
         {tabs.map((tab) => {
           const isActive = tab.id === active;

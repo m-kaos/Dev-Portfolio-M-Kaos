@@ -4,6 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// The browser otherwise restores the previous scroll offset on reload, which on
+// a single long page means reopening the site halfway down it. `ScrollToTop`
+// handles the per-route reset.
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
